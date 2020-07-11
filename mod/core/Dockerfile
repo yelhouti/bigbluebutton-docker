@@ -1,10 +1,5 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER ffdixon@bigbluebutton.org
-
-# TODO:
-# - separate bbb-apps into an own container
-# - separate bbb-web
-# - remove systemd
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV container docker
@@ -12,7 +7,6 @@ ENV DOCKERIZE_VERSION v0.6.1
 
 RUN apt-get update && apt-get install -y software-properties-common language-pack-en wget apt-utils
 RUN update-locale LANG=en_US.UTF-8
-RUN LC_CTYPE=C.UTF-8 add-apt-repository ppa:rmescandon/yq
 
 # install dockerize
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
@@ -23,12 +17,13 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 # RUN apt-get install -y  tcpdump telnet htop vim
 
 # -- Install Dependencies
-RUN apt-get install -y supervisor apt-transport-https equivs libreoffice haveged ttf-liberation net-tools
+RUN (echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections) \
+    && apt-get install -y supervisor apt-transport-https equivs libreoffice haveged ttf-mscorefonts-installer fonts-crosextra-carlito fonts-crosextra-caladea fonts-noto net-tools 
 
 # bbb repo & packages
 RUN LC_CTYPE=C.UTF-8 add-apt-repository ppa:bigbluebutton/support
-RUN sh -c 'wget https://ubuntu.bigbluebutton.org/repo/bigbluebutton.asc -O- | apt-key add -' \
-    && sh -c 'echo "deb https://packages-eu.bigbluebutton.org/xenial-22 bigbluebutton-xenial main" > /etc/apt/sources.list.d/bigbluebutton.list'
+RUN sh -c 'wget https://packages-eu.bigbluebutton.org/repo/bigbluebutton.asc -O- | apt-key add -' \
+    && sh -c 'echo "deb https://ubuntu.bigbluebutton.org/bionic-230-dev bigbluebutton-bionic main" > /etc/apt/sources.list.d/bigbluebutton.list'
 
 # create dummy packages to satisfy dependencies
 RUN equivs-control redis-server.control \
@@ -37,25 +32,9 @@ RUN equivs-control redis-server.control \
     && dpkg -i /*.deb \
     && rm /*.deb
 
-RUN apt-get update && apt-get install -y bbb-web \
-                    bbb-fsesl-akka bbb-apps-akka bbb-transcode-akka bbb-apps \
-                    bbb-apps-video bbb-apps-screenshare bbb-apps-video-broadcast
-
-# -- avoid blocking java 
-# https://github.com/bigbluebutton/bigbluebutton/issues/8959
-RUN sed -i 's|securerandom.source=file:/dev/random|securerandom.source=file:/dev/urandom|g'  /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/java.security
+RUN apt-get update && apt-get install -y bbb-web bbb-fsesl-akka bbb-apps-akka bbb-transcode-akka
 
 # -- copy configuration files
-COPY red5-webapps/bigbluebutton/application.conf /usr/share/red5/webapps/bigbluebutton/WEB-INF/classes/application.conf
-COPY red5-webapps/bigbluebutton/bigbluebutton.properties /usr/share/red5/webapps/bigbluebutton/WEB-INF/bigbluebutton.properties
-COPY red5-webapps/bigbluebutton/redis.properties /usr/share/red5/webapps/bigbluebutton/WEB-INF/redis.properties
-COPY red5-webapps/sip/bigbluebutton-sip.properties /usr/share/red5/webapps/sip/WEB-INF/bigbluebutton-sip.properties
-COPY red5-webapps/screenshare/screenshare.properties /usr/share/red5/webapps/screenshare/WEB-INF/screenshare.properties
-COPY red5-webapps/screenshare/screenshare-app.conf /usr/share/red5/webapps/screenshare/WEB-INF/classes/screenshare-app.conf
-COPY red5-webapps/screenshare/application.conf /usr/share/red5/webapps/screenshare/WEB-INF/classes/application.conf
-COPY red5-webapps/video/bigbluebutton-video.properties /usr/share/red5/webapps/video/WEB-INF/bigbluebutton-video.properties
-COPY red5-webapps/video-broadcast/video-broadcast.properties /usr/share/red5/webapps/video-broadcast/WEB-INF/video-broadcast.properties
-
 COPY bigbluebutton.yml /usr/local/bigbluebutton/core/scripts/bigbluebutton.yml
 
 COPY web/bigbluebutton.properties /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties.tmpl
