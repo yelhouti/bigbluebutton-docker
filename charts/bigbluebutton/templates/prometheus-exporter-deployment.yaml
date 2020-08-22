@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.prometheus.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: prometheus-exporter
+  name: prometheus-exporter
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: prometheus-exporter
+    spec:
+      containers:
+      - env:
+        - name: API_BASE_URL
+          value: http://10.7.7.1:8080/bigbluebutton/api/
+        - name: API_SECRET
+          value: yVLQSPFNLhCzRWebzU470hBYNZ5b2ImZXXtaHLVB
+        - name: RECORDINGS_METRICS_READ_FROM_DISK
+          value: "false"
+        image: greenstatic/bigbluebutton-exporter:v0.5.1
+        name: prometheus-exporter
+        resources: {}
+      restartPolicy: Always
+status: {}

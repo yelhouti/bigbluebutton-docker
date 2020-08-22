@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: periodic
+  name: periodic
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: periodic
+    spec:
+      containers:
+      - image: periodic
+        name: periodic
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: periodic-claim0
+        - mountPath: /var/bigbluebutton
+          name: bigbluebutton
+      restartPolicy: Always
+      volumes:
+      - name: periodic-claim0
+        persistentVolumeClaim:
+          claimName: periodic-claim0
+      - name: bigbluebutton
+        persistentVolumeClaim:
+          claimName: bigbluebutton
+status: {}

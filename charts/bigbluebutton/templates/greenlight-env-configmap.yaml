@@ -1,0 +1,65 @@
+apiVersion: v1
+data:
+  ALLOW_GREENLIGHT_ACCOUNTS: "true"
+  AUTO_SHARE_WEBCAM: "false"
+  CHAT_ENABLED: "true"
+  CHAT_START_CLOSED: "false"
+  CLIENT_TITLE: BigBlueButton
+  DEFAULT_PRESENTATION: ./mod/nginx/default.pdf
+  DEFAULT_REGISTRATION: open
+  DISABLE_ECHO_TEST: "false"
+  DISABLE_SOUND_ALONE: "false"
+  DISABLE_SOUND_MUTED: "false"
+  DISABLE_VIDEO_PREVIEW: "false"
+  DOMAIN: bbb.egauss.net
+  ENABLE_GOOGLE_CALENDAR_BUTTON: ""
+  ETHERPAD_API_KEY: hSFPBBoQrSdm98wJtg0QZ5xTj1WmKONrgnC7hD8I
+  EXTERNAL_IPv4: 46.4.68.178
+  EXTERNAL_IPv6: ""
+  HELP_URL: https://docs.bigbluebutton.org/greenlight/gl-overview.html
+  LDAP_AUTH: ""
+  LDAP_BASE: ""
+  LDAP_BIND_DN: ""
+  LDAP_FILTER: ""
+  LDAP_METHOD: ""
+  LDAP_PASSWORD: ""
+  LDAP_PORT: ""
+  LDAP_ROLE_FIELD: ""
+  LDAP_SERVER: ""
+  LDAP_UID: ""
+  LISTEN_ONLY_MODE: "true"
+  MAINTENANCE_MODE: "false"
+  MAINTENANCE_WINDOW: ""
+  NUMBER_OF_ROWS: "25"
+  OAUTH2_REDIRECT: ""
+  OFFICE365_HD: ""
+  OFFICE365_KEY: ""
+  OFFICE365_SECRET: ""
+  PAGINATION_NUMBER: "25"
+  RAILS_SECRET: 6535e2d86ee3dd5dea793b53a66735f80fd17440e111bddc3634aced15cb530afeacd445b3da39b844fc5da761041bd2710c44d9b16f740dc6b58cb4
+  RELATIVE_URL_ROOT: /b
+  ROOM_FEATURES: mute-on-join,require-moderator-approval,anyone-can-start,all-join-moderator
+  SHARED_SECRET: yVLQSPFNLhCzRWebzU470hBYNZ5b2ImZXXtaHLVB
+  SIP_IP_ALLOWLIST: ""
+  SMTP_AUTH: ""
+  SMTP_DOMAIN: "n"
+  SMTP_PASSWORD: ""
+  SMTP_PORT: ""
+  SMTP_SENDER: ""
+  SMTP_SERVER: ""
+  SMTP_STARTTLS_AUTO: ""
+  SMTP_USERNAME: ""
+  STUN_IP: 216.93.246.18
+  STUN_PORT: "3478"
+  WELCOME_FOOTER: This server is running <a href="https://docs.bigbluebutton.org/"
+    target="_blank"><u>BigBlueButton</u></a>.
+  WELCOME_MESSAGE: Welcome to <b>%%CONFNAME%%</b>!<br><br>For help on using BigBlueButton
+    see these (short) <a href="https://www.bigbluebutton.org/html5" target="_blank"><u>tutorial
+    videos</u></a>.<br><br>To join the audio bridge click the phone button.  Use a
+    headset to avoid causing background noise for others.
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: greenlight-env
+  name: greenlight-env

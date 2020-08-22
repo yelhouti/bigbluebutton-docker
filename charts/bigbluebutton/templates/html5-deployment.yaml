@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: html5
+  name: html5
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: html5
+    spec:
+      containers:
+      - env:
+        - name: AUTO_SHARE_WEBCAM
+          value: "false"
+        - name: CHAT_ENABLED
+          value: "true"
+        - name: CHAT_START_CLOSED
+          value: "false"
+        - name: CLIENT_TITLE
+          value: BigBlueButton
+        - name: DEV_MODE
+        - name: DISABLE_ECHO_TEST
+          value: "false"
+        - name: DISABLE_VIDEO_PREVIEW
+          value: "false"
+        - name: DOMAIN
+          value: bbb.egauss.net
+        - name: ETHERPAD_API_KEY
+          value: hSFPBBoQrSdm98wJtg0QZ5xTj1WmKONrgnC7hD8I
+        - name: LISTEN_ONLY_MODE
+          value: "true"
+        image: html5
+        name: html5
+        resources: {}
+      restartPolicy: Always
+status: {}

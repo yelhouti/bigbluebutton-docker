@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.demo.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: demo
+  name: demo
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: demo
+    spec:
+      containers:
+      - env:
+        - name: DOMAIN
+          value: bbb.egauss.net
+        - name: SHARED_SECRET
+          value: yVLQSPFNLhCzRWebzU470hBYNZ5b2ImZXXtaHLVB
+        image: demo
+        name: demo
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+status: {}

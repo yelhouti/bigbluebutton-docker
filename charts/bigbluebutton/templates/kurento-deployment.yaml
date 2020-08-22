@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kurento
+  name: kurento
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: kurento
+    spec:
+      containers:
+      - env:
+        - name: KMS_MAX_PORT
+          value: "32768"
+        - name: KMS_MIN_PORT
+          value: "24577"
+        - name: KMS_NETWORK_INTERFACES
+        - name: KMS_STUN_IP
+          value: 216.93.246.18
+        - name: KMS_STUN_PORT
+          value: "3478"
+        image: kurento/kurento-media-server:6.14
+        name: kurento
+        resources: {}
+      restartPolicy: Always
+status: {}

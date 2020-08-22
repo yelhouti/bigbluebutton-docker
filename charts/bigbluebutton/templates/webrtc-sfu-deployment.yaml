@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: webrtc-sfu
+  name: webrtc-sfu
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: webrtc-sfu
+    spec:
+      containers:
+      - env:
+        - name: CLIENT_HOST
+          value: 0.0.0.0
+        - name: ESL_IP
+          value: host.docker.internal
+        - name: FREESWITCH_IP
+          value: host.docker.internal
+        - name: FREESWITCH_SIP_IP
+          value: 46.4.68.178
+        - name: KURENTO_NAME
+          value: kurento
+        - name: LOG_LEVEL
+          value: info
+        - name: NODE_CONFIG
+          value: '{"kurento":[{"ip":"46.4.68.178","url":"ws://kurento:8888/kurento"}]}'
+        - name: REDIS_HOST
+          value: redis
+        image: webrtc-sfu
+        name: webrtc-sfu
+        ports:
+        - containerPort: 3008
+        resources: {}
+      restartPolicy: Always
+status: {}

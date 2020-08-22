@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: nginx
+  name: nginx
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nginx
+    spec:
+      containers:
+      - image: nginx:1.19-alpine
+        name: nginx
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/bigbluebutton
+          name: bigbluebutton
+        - mountPath: /etc/nginx/bbb
+          name: nginx-claim1
+        - mountPath: /etc/nginx/conf.d/default.conf
+          name: nginx-claim2
+        - mountPath: /etc/nginx/html/default.pdf
+          name: nginx-claim3
+      restartPolicy: Always
+      volumes:
+      - name: bigbluebutton
+        persistentVolumeClaim:
+          claimName: bigbluebutton
+      - name: nginx-claim1
+        persistentVolumeClaim:
+          claimName: nginx-claim1
+      - name: nginx-claim2
+        persistentVolumeClaim:
+          claimName: nginx-claim2
+      - name: nginx-claim3
+        persistentVolumeClaim:
+          claimName: nginx-claim3
+status: {}

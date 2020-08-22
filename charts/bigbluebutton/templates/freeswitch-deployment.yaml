@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: freeswitch
+  name: freeswitch
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: freeswitch
+    spec:
+      containers:
+      - env:
+        - name: DISABLE_SOUND_ALONE
+          value: "false"
+        - name: DISABLE_SOUND_MUTED
+          value: "false"
+        - name: DOMAIN
+          value: bbb.egauss.net
+        - name: EXTERNAL_IPv4
+          value: 46.4.68.178
+        - name: EXTERNAL_IPv6
+        - name: SIP_IP_ALLOWLIST
+        image: freeswitch
+        name: freeswitch
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - IPC_LOCK
+            - NET_ADMIN
+            - NET_RAW
+            - NET_BROADCAST
+            - SYS_NICE
+            - SYS_RESOURCE
+        volumeMounts:
+        - mountPath: /etc/freeswitch/sip_profiles/external
+          name: freeswitch-claim0
+        - mountPath: /etc/freeswitch/dialplan/public_docker
+          name: freeswitch-claim1
+      restartPolicy: Always
+      volumes:
+      - name: freeswitch-claim0
+        persistentVolumeClaim:
+          claimName: freeswitch-claim0
+      - name: freeswitch-claim1
+        persistentVolumeClaim:
+          claimName: freeswitch-claim1
+status: {}

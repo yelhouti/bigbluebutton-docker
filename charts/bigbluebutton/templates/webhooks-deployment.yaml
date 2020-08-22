@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.webhooks.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: webhooks
+  name: webhooks
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: webhooks
+    spec:
+      containers:
+      - env:
+        - name: DOMAIN
+          value: bbb.egauss.net
+        - name: SHARED_SECRET
+          value: yVLQSPFNLhCzRWebzU470hBYNZ5b2ImZXXtaHLVB
+        image: webhooks
+        name: webhooks
+        resources: {}
+      restartPolicy: Always
+status: {}

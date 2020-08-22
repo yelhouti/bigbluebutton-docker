@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: etherpad
+  name: etherpad
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: etherpad
+    spec:
+      containers:
+      - env:
+        - name: ETHERPAD_API_KEY
+          value: hSFPBBoQrSdm98wJtg0QZ5xTj1WmKONrgnC7hD8I
+        image: etherpad
+        name: etherpad
+        resources: {}
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,308 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../../../docker-compose.greenlight.yml convert
+    kompose.version: 1.17.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: greenlight
+  name: greenlight
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: greenlight
+    spec:
+      containers:
+      - env:
+        - name: ALLOW_GREENLIGHT_ACCOUNTS
+          valueFrom:
+            configMapKeyRef:
+              key: ALLOW_GREENLIGHT_ACCOUNTS
+              name: greenlight-env
+        - name: AUTO_SHARE_WEBCAM
+          valueFrom:
+            configMapKeyRef:
+              key: AUTO_SHARE_WEBCAM
+              name: greenlight-env
+        - name: BIGBLUEBUTTON_ENDPOINT
+        - name: BIGBLUEBUTTON_SECRET
+          value: yVLQSPFNLhCzRWebzU470hBYNZ5b2ImZXXtaHLVB
+        - name: CHAT_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              key: CHAT_ENABLED
+              name: greenlight-env
+        - name: CHAT_START_CLOSED
+          valueFrom:
+            configMapKeyRef:
+              key: CHAT_START_CLOSED
+              name: greenlight-env
+        - name: CLIENT_TITLE
+          valueFrom:
+            configMapKeyRef:
+              key: CLIENT_TITLE
+              name: greenlight-env
+        - name: DB_ADAPTER
+          value: postgresql
+        - name: DB_HOST
+          value: postgres
+        - name: DB_NAME
+          value: greenlight
+        - name: DB_PASSWORD
+          value: password
+        - name: DB_USERNAME
+          value: postgres
+        - name: DEFAULT_PRESENTATION
+          valueFrom:
+            configMapKeyRef:
+              key: DEFAULT_PRESENTATION
+              name: greenlight-env
+        - name: DEFAULT_REGISTRATION
+          valueFrom:
+            configMapKeyRef:
+              key: DEFAULT_REGISTRATION
+              name: greenlight-env
+        - name: DISABLE_ECHO_TEST
+          valueFrom:
+            configMapKeyRef:
+              key: DISABLE_ECHO_TEST
+              name: greenlight-env
+        - name: DISABLE_SOUND_ALONE
+          valueFrom:
+            configMapKeyRef:
+              key: DISABLE_SOUND_ALONE
+              name: greenlight-env
+        - name: DISABLE_SOUND_MUTED
+          valueFrom:
+            configMapKeyRef:
+              key: DISABLE_SOUND_MUTED
+              name: greenlight-env
+        - name: DISABLE_VIDEO_PREVIEW
+          valueFrom:
+            configMapKeyRef:
+              key: DISABLE_VIDEO_PREVIEW
+              name: greenlight-env
+        - name: DOMAIN
+          valueFrom:
+            configMapKeyRef:
+              key: DOMAIN
+              name: greenlight-env
+        - name: ENABLE_GOOGLE_CALENDAR_BUTTON
+          valueFrom:
+            configMapKeyRef:
+              key: ENABLE_GOOGLE_CALENDAR_BUTTON
+              name: greenlight-env
+        - name: ETHERPAD_API_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: ETHERPAD_API_KEY
+              name: greenlight-env
+        - name: EXTERNAL_IPv4
+          valueFrom:
+            configMapKeyRef:
+              key: EXTERNAL_IPv4
+              name: greenlight-env
+        - name: EXTERNAL_IPv6
+          valueFrom:
+            configMapKeyRef:
+              key: EXTERNAL_IPv6
+              name: greenlight-env
+        - name: HELP_URL
+          valueFrom:
+            configMapKeyRef:
+              key: HELP_URL
+              name: greenlight-env
+        - name: LDAP_AUTH
+          valueFrom:
+            configMapKeyRef:
+              key: LDAP_AUTH
+              name: greenlight-env
+        - name: LDAP_BASE
+          valueFrom:
+            configMapKeyRef:
+              key: LDAP_BASE
+              name: greenlight-env
+        - name: LDAP_BIND_DN
+          valueFrom:
+            configMapKeyRef:
+              key: LDAP_BIND_DN
+              name: greenlight-env
+        - name: LDAP_FILTER
+          valueFrom:
+            configMapKeyRef:
+              key: LDAP_FILTER
+              name: greenlight-env
+        - name: LDAP_METHOD
+          valueFrom:
+            configMapKeyRef:
+              key: LDAP_METHOD
+              name: greenlight-env
+        - name: LDAP_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: LDAP_PASSWORD
+              name: greenlight-env
+        - name: LDAP_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: LDAP_PORT
+              name: greenlight-env
+        - name: LDAP_ROLE_FIELD
+          valueFrom:
+            configMapKeyRef:
+              key: LDAP_ROLE_FIELD
+              name: greenlight-env
+        - name: LDAP_SERVER
+          valueFrom:
+            configMapKeyRef:
+              key: LDAP_SERVER
+              name: greenlight-env
+        - name: LDAP_UID
+          valueFrom:
+            configMapKeyRef:
+              key: LDAP_UID
+              name: greenlight-env
+        - name: LISTEN_ONLY_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: LISTEN_ONLY_MODE
+              name: greenlight-env
+        - name: MAINTENANCE_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: MAINTENANCE_MODE
+              name: greenlight-env
+        - name: MAINTENANCE_WINDOW
+          valueFrom:
+            configMapKeyRef:
+              key: MAINTENANCE_WINDOW
+              name: greenlight-env
+        - name: NUMBER_OF_ROWS
+          valueFrom:
+            configMapKeyRef:
+              key: NUMBER_OF_ROWS
+              name: greenlight-env
+        - name: OAUTH2_REDIRECT
+          valueFrom:
+            configMapKeyRef:
+              key: OAUTH2_REDIRECT
+              name: greenlight-env
+        - name: OFFICE365_HD
+          valueFrom:
+            configMapKeyRef:
+              key: OFFICE365_HD
+              name: greenlight-env
+        - name: OFFICE365_KEY
+          valueFrom:
+            configMapKeyRef:
+              key: OFFICE365_KEY
+              name: greenlight-env
+        - name: OFFICE365_SECRET
+          valueFrom:
+            configMapKeyRef:
+              key: OFFICE365_SECRET
+              name: greenlight-env
+        - name: PAGINATION_NUMBER
+          valueFrom:
+            configMapKeyRef:
+              key: PAGINATION_NUMBER
+              name: greenlight-env
+        - name: RAILS_SECRET
+          valueFrom:
+            configMapKeyRef:
+              key: RAILS_SECRET
+              name: greenlight-env
+        - name: RELATIVE_URL_ROOT
+          valueFrom:
+            configMapKeyRef:
+              key: RELATIVE_URL_ROOT
+              name: greenlight-env
+        - name: ROOM_FEATURES
+          valueFrom:
+            configMapKeyRef:
+              key: ROOM_FEATURES
+              name: greenlight-env
+        - name: SECRET_KEY_BASE
+          value: 6535e2d86ee3dd5dea793b53a66735f80fd17440e111bddc3634aced15cb530afeacd445b3da39b844fc5da761041bd2710c44d9b16f740dc6b58cb4
+        - name: SHARED_SECRET
+          valueFrom:
+            configMapKeyRef:
+              key: SHARED_SECRET
+              name: greenlight-env
+        - name: SIP_IP_ALLOWLIST
+          valueFrom:
+            configMapKeyRef:
+              key: SIP_IP_ALLOWLIST
+              name: greenlight-env
+        - name: SMTP_AUTH
+          valueFrom:
+            configMapKeyRef:
+              key: SMTP_AUTH
+              name: greenlight-env
+        - name: SMTP_DOMAIN
+          valueFrom:
+            configMapKeyRef:
+              key: SMTP_DOMAIN
+              name: greenlight-env
+        - name: SMTP_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: SMTP_PASSWORD
+              name: greenlight-env
+        - name: SMTP_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: SMTP_PORT
+              name: greenlight-env
+        - name: SMTP_SENDER
+          valueFrom:
+            configMapKeyRef:
+              key: SMTP_SENDER
+              name: greenlight-env
+        - name: SMTP_SERVER
+          valueFrom:
+            configMapKeyRef:
+              key: SMTP_SERVER
+              name: greenlight-env
+        - name: SMTP_STARTTLS_AUTO
+          valueFrom:
+            configMapKeyRef:
+              key: SMTP_STARTTLS_AUTO
+              name: greenlight-env
+        - name: SMTP_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: SMTP_USERNAME
+              name: greenlight-env
+        - name: STUN_IP
+          valueFrom:
+            configMapKeyRef:
+              key: STUN_IP
+              name: greenlight-env
+        - name: STUN_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: STUN_PORT
+              name: greenlight-env
+        - name: WELCOME_FOOTER
+          valueFrom:
+            configMapKeyRef:
+              key: WELCOME_FOOTER
+              name: greenlight-env
+        - name: WELCOME_MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              key: WELCOME_MESSAGE
+              name: greenlight-env
+        image: bigbluebutton/greenlight:v2
+        name: greenlight
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+status: {}
